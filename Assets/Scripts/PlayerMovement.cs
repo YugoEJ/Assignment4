@@ -4,33 +4,24 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    Rigidbody rb;
+
+    [SerializeField]
+    float movementSpeed = 6f;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 5);
-        }
+        float horizontalInput = Input.GetAxis("Vertical");
+        float verticalInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -5);
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            GetComponent<Rigidbody>().velocity = new Vector3(5, 0, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            GetComponent<Rigidbody>().velocity = new Vector3(-5, 0, 0);
-        }
+        rb.velocity = new Vector3(horizontalInput * movementSpeed, rb.velocity.y, verticalInput * movementSpeed);
     }
 }
